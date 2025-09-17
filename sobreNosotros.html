@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- 🧠 METADATOS Y ENLACES -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Libreria la Brigada</title>
+
+  <!-- ✅ Fuentes e íconos -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- 🎨 Hoja de estilos externa -->
+  <link rel="stylesheet" href="Nosotros.css">
+</head>
+
+<body>
+<!-- 📞 BARRA SUPERIOR DE CONTACTO -->
+<div class="top-contact">
+  <div class="contact-left">
+    <span>📞 Contáctanos al +502 4218 1632</span>
+  </div>
+  <div class="contact-right">
+    <a href="https://www.facebook.com/share/17BnFnVbaf/?mibextid=wwXIfr" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+  </div>
+</div>
+  <!-- 🧭 ENCABEZADO PRINCIPAL -->
+  <header class="main-header">
+    <div class="nav-container">
+      <div class="logo-area">
+        <img src="LogoLibre.png" alt="Logo" class="logo-img" />
+      </div>
+
+ <div class="user-area">
+  <span id="openForm" style="cursor:pointer;">
+    <i class="fas fa-user-circle"></i> Formulario
+  </span>
+</div>
+</div>
+
+    <nav class="main-menu">
+      <a href="index.html">Categorías</a>
+      <a href="Pmarca.html">Por Marca</a>
+      <a href="MasVendidos.html">Más vendidos</a>
+      <a href="Regreso.html">Regreso a clases</a>
+      <a href="sobreNosotros.html">Sobre nosotros</a>
+    </nav>
+  </header>
+
+  <!-- 📝 SECCIÓN SOBRE NOSOTROS -->
+  <section class="sobre-nosotros">
+    <div class="sobre-nosotros-texto">
+      <h2>Sobre nosotros</h2>
+      <p id="textoCorto">
+       En Librería La Brigada creemos que la educación y la lectura son la base del crecimiento personal y comunitario. Desde nuestros inicios hemos trabajado con pasión para ofrecer a estudiantes, profesionales y amantes de los libros un espacio donde puedan encontrar todo lo que necesitan: desde útiles escolares y material de oficina, hasta literatura clásica, contemporánea y textos especializados.
+        <span id="textoExtra" style="display: none;">
+          Nuestro compromiso es brindar productos de calidad, atención personalizada y precios justos, acompañando a cada cliente en su camino de aprendizaje y conocimiento.
+        </span>
+      </p>
+      <button id="btnLeerMas" class="btn-sobre">Leer más</button>
+    </div>
+
+    <div class="sobre-nosotros-imagen">
+      <img src="nosotros.png" alt="Imagen sobre nosotros">
+    </div>
+  </section>
+
+ <!-- 📩 FORMULARIO EN MODAL -->
+<div id="formModal" class="modal">
+  <div class="modal-content">
+    <!-- Botón para cerrar el modal -->
+    <span class="close">&times;</span>
+
+    <!-- Título del formulario dentro del modal -->
+    <h2>📌 Envíanos tu consulta</h2>
+
+    <!-- Formulario de reserva/consulta -->
+    <form id="reservaForm">
+      
+      <!-- Campo para el nombre -->
+      <label>Nombre completo *</label>
+      <input type="text" id="nombre" required>
+
+      <!-- Campo para el correo -->
+      <label>Correo electrónico *</label>
+      <input type="email" id="email" required>
+
+      <!-- Campo para el teléfono -->
+      <label>Teléfono *</label>
+      <input type="tel" id="telefono" required>
+
+      <!-- Selección del servicio o producto -->
+      <label>Servicio / Producto *</label>
+      <select id="servicio" required>
+        <option value="">-- Selecciona --</option>
+        <option value="libros">Libros</option>
+        <option value="utiles">Útiles escolares</option>
+        <option value="otros">Otros</option>
+      </select>
+
+      <!-- Campo opcional para elegir fecha -->
+      <label>Fecha de interés</label>
+      <input type="date" id="fecha">
+
+      <!-- Campo para comentarios adicionales -->
+      <label>Comentarios</label>
+      <textarea id="comentarios" rows="4"></textarea>
+
+      <!-- Botón para enviar el formulario -->
+      <button id="btnEnviar" type="submit">📤 Enviar</button>
+
+      <!-- Mensaje de validación o confirmación -->
+      <p id="mensaje"></p>
+    </form>
+  </div>
+</div>
+
+
+<!-- 👣 PIE DE PÁGINA -->
+<footer style="background-color: #050d2e; color: white; padding: 20px; text-align: center; margin-top: 60px;">
+  <p>&copy; 2025 Librería Escolar. Todos los derechos reservados.</p>
+  <div style="max-width: 1100px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;">
+
+    <!-- 🏢 Información de la empresa -->
+    <div style="flex: 1 1 250px;">
+      <h3 style="color: var(--naranja-vibrante); margin-bottom: 10px;">Librería La Brigada</h3>
+      <p>Tu destino confiable para útiles escolares, libros y más.</p>
+      <p><i class="fas fa-map-marker-alt"></i> 1 calle, 8 avenida La Brigada zona 7 de mixco Ciudad de Guatemala.</p>
+      <p><i class="fas fa-phone"></i> +502 4218-1632</p>
+      <p><i class="fas fa-envelope"></i> Cessiancabrera@gmail.com.com</p>
+    </div>
+
+    <!-- 🔗 Enlaces rápidos -->
+    <div style="flex: 1 1 180px;">
+      <h4 style="color: var(--naranja-vibrante); margin-bottom: 10px;">Enlaces rápidos</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li><a href="index.html" style="color: white; text-decoration: none;">Inicio</a></li>
+        <li><a href="Pmarca.html" style="color: white; text-decoration: none;">Por marca</a></li>
+        <li><a href="MasVendidos.html" style="color: white; text-decoration: none;">Mas vendios</a></li>
+        <li><a href="Regreso.html" style="color: white; text-decoration: none;">Regreso a clases</a></li>
+        <li><a href="sobreNosotros.html" style="color: white; text-decoration: none;">Sobre nosotros</a></li>
+      </ul>
+    </div>
+
+    <!-- 📲 Redes sociales -->
+    <div style="flex: 1 1 180px;">
+      <h4 style="color: var(--naranja-vibrante); margin-bottom: 10px;">Síguenos</h4>
+      <a href="https://www.facebook.com/share/17BnFnVbaf/?mibextid=wwXIfr" style="color: white; font-size: 20px; margin-right: 10px;"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+
+  <!-- 💬 Derechos reservados -->
+  <div style="text-align: center; margin-top: 30px; border-top: 1px solid #444; padding-top: 15px;">
+    © 2025 Librería La Brigada. Todos los derechos reservados.
+  </div>
+</footer>
+
+  <!-- 🖥️ SCRIPTS -->
+<!-- 🔹 SCRIPT PARA ABRIR/CERRAR EL MODAL -->
+<script>
+  // Se obtiene el modal y los botones de abrir/cerrar
+  const modal = document.getElementById("formModal");
+  const btnOpen = document.getElementById("openForm");
+  const btnClose = document.querySelector(".close");
+
+  // Cuando se hace clic en el botón de abrir, se muestra el modal
+  btnOpen.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  // Cuando se hace clic en el botón de cerrar, se oculta el modal
+  btnClose.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Si el usuario hace clic fuera del modal, este se cierra
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+<!--FORM SCRIPT-->
+<script type="module">
+  // Importación de los SDKs de Firebase desde la CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // Configuración del proyecto en Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBvSr5tcQ9D6qSHIpoFaD-DyhW2X5D2ClI",
+    authDomain: "libreria-la-brigada.firebaseapp.com",
+    projectId: "libreria-la-brigada",
+    storageBucket: "libreria-la-brigada.appspot.com",
+    messagingSenderId: "797710331008",
+    appId: "1:797710331008:web:9b2cf2caba898c52ac0a65",
+    measurementId: "G-TXJMRX7VYM"
+  };
+
+  // Inicialización de Firebase y Firestore
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Función auxiliar para seleccionar elementos del DOM
+  const $ = (sel) => document.querySelector(sel);
+
+  // Referencias a los elementos del formulario
+  const form = $('#reservaForm');
+  const btn  = $('#btnEnviar');
+  const msg  = $('#mensaje');
+
+  // Validación de formato de email
+  const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  // Validación de formato de teléfono
+  const isPhone = (v) => /^[0-9+\-\s]{8,}$/.test(v);
+
+  // Manejo del evento de envío del formulario
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Evita el envío tradicional del formulario
+
+    // Obtiene los valores de los campos del formulario
+    const nombre = $('#nombre').value.trim();
+    const email = $('#email').value.trim();
+    const telefono = $('#telefono').value.trim();
+    const servicio = $('#servicio').value;
+    const fechaStr = $('#fecha').value;
+    const comentarios = $('#comentarios').value.trim();
+
+    // Validación de los campos obligatorios
+    if (!nombre || !isEmail(email) || !isPhone(telefono) || !servicio) {
+      msg.textContent = "❗ Revisa los campos obligatorios.";
+      msg.style.color = "#b10039";
+      return;
+    }
+
+    // Prepara los datos que se enviarán a Firestore
+    const data = {
+      nombre,
+      email,
+      telefono,
+      servicio,
+      fecha: fechaStr || null,
+      comentarios,
+      createdAt: serverTimestamp()
+    };
+
+    // Intenta guardar la información en Firestore
+    try {
+      btn.disabled = true; // Desactiva el botón durante el proceso
+      btn.textContent = "Guardando...";
+      const ref = await addDoc(collection(db, "reservas"), data);
+
+      // Mensaje de éxito si se guarda correctamente
+      msg.textContent = "✅ Reserva guardada correctamente. ID: " + ref.id;
+      msg.style.color = "#0e7c3a";
+      form.reset(); // Limpia los campos del formulario
+    } catch (err) {
+      // Mensaje de error si falla el guardado
+      console.error(err);
+      msg.textContent = "❌ Error al guardar la reserva. Intenta de nuevo.";
+      msg.style.color = "#b10039";
+    } finally {
+      // Reactiva el botón y restaura el texto
+      btn.disabled = false;
+      btn.textContent = "📤 Enviar";
+    }
+  });
+
+    // Leer más
+    const btnLeerMas = document.getElementById("btnLeerMas");
+    const textoExtra = document.getElementById("textoExtra");
+
+    btnLeerMas.addEventListener("click", () => {
+      if (textoExtra.style.display === "none") {
+        textoExtra.style.display = "inline";
+        btnLeerMas.textContent = "Leer menos";
+      } else {
+        textoExtra.style.display = "none";
+        btnLeerMas.textContent = "Leer más";
+      }
+    });
+  </script>
+
+</body>
+</html>

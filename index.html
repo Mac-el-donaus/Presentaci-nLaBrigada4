@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- 🧠 METADATOS Y ENLACES -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Libreria la Brigada</title>
+
+  <!-- Estilos externos -->
+ <!-- ✅ Fuente directa de íconos Font Awesome 6 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- 🎨 ESTILOS INTERNOS -->
+  <style>
+  /* 🎨 PALETA DE COLORES */
+  :root {
+    --azul-profundo: #163354;
+    --naranja-vibrante: #f0a42c;
+    --blanco-puro: #ffffff;
+    --marron-tierra: #573c12;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 🌐 TIPOGRAFÍA Y FONDO */
+  body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f5f7fa, #eaeff5);
+    color: var(--azul-profundo);
+    line-height: 1.6;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--azul-profundo);
+    margin-top: 0.5em;
+    margin-bottom: 0.3em;
+    letter-spacing: 0.5px;
+  }
+
+  h1 { font-size: 38px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  h2 { font-size: 30px; font-weight: 700; }
+  h3 { font-size: 24px; font-weight: 600; }
+  h4 { font-size: 20px; }
+  h5 { font-size: 18px; }
+  h6 { font-size: 16px; }
+
+  /* 🎞️ SLIDER PRINCIPAL */
+  .hero-slider {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+  }
+
+  .hero-slider .slides {
+    height: 100%;
+    position: relative;
+  }
+
+  .hero-slider .slide {
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .hero-slider .slide.active {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.85);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 80%;
+    line-height: 1.4;
+  }
+
+  .caption h1 {
+    margin: 0;
+    font-size: 36px;
+    color: var(--azul-profundo);
+  }
+
+  .caption p {
+    font-size: 20px;
+    color: var(--azul-profundo);
+  }
+
+  .controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  .controls button {
+    background: rgba(22, 51, 84, 0.7);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .controls button:hover {
+    background: rgba(240, 164, 44, 0.9);
+  }
+
+  .indicators {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+  }
+
+  .indicators button {
+    width: 12px;
+    height: 12px;
+    margin: 0 4px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .indicators button.active {
+    background-color: var(--naranja-vibrante);
+  }
+
+  .boton-agregar {
+    background-color: var(--naranja-vibrante);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .boton-agregar:hover {
+    background-color: #e78c1a;
+    transform: scale(1.05);
+  }
+
+  .boton-agregar:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* 📦 CONTENEDOR GENERAL */
+  .container {
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    gap: 20px;
+  }
+
+  /* 📚 CATEGORÍAS SLIDER */
+  .categorias-principales {
+    background: var(--azul-profundo);
+    color: var(--blanco-puro);
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slider {
+    width: 100%;
+    height: 180px;
+    position: relative;
+  }
+
+  .categorias-principales .slide {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.8s ease;
+  }
+
+  .categorias-principales .slide.active {
+    opacity: 1;
+    transform: translateX(0%);
+    z-index: 1;
+  }
+
+  .categorias-principales .slide.out {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  .slide i {
+    font-size: 60px;
+    margin-bottom: 10px;
+    color: var(--naranja-vibrante);
+  }
+
+ /* 🔲 MENÚ CUADRÍCULA */
+.menu-cuadricula {
+  max-width: 800px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 100px);
+  gap: 15px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blanco-puro);
+  background-color: var(--marron-tierra);
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;   /*  quita el subrayado */
+}
+
+.menu-item:hover {
+  background-color: var(--naranja-vibrante);
+  color: #000;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item i {
+  margin-right: 10px;
+  font-size: 22px;
+  color: var(--naranja-vibrante);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-item:hover i {
+  color: #000;
+  transform: scale(1.3);
+}
+
+  /* 🔝 BARRA DE CONTACTO */
+  .top-contact {
+    background-color: #050d2e;
+    color: white;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  .top-contact .contact-left {
+    font-weight: 500;
+  }
+
+  .top-contact .contact-right a {
+    color: white;
+    margin-left: 12px;
+    font-size: 16px;
+    transition: color 0.2s;
+    text-decoration: none;
+  }
+
+  .top-contact .contact-right a:hover {
+    color: var(--naranja-vibrante);
+  }
+
+  /* 🧭 HEADER Y NAVEGACIÓN */
+  .main-header {
+    background-color: #050d2e;
+    color: white;
+    font-size: 14px;
+  }
+
+  .nav-container {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+  }
+
+  .logo-img {
+    height: 130px;
+  }
+
+
+  .user-area {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .user-area a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .main-menu {
+    background-color: #050d2e;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    border-top: 1px solid #1a1a1a;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .main-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 1000;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .main-menu a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--naranja-vibrante);
+    transition: width 0.3s;
+  }
+
+  .main-menu a:hover::after {
+    width: 100%;
+  }
+
+  /* 🌙 Modal */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #050d2e;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 12px;
+  background: #050d2e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background: #0a1a4d;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close:hover {
+  color: #b10039; /* un rojo elegante */
+  transform: scale(1.2);
+}
+
+
+
+  </style>
+</head>
+
+<!-- 📞 BARRA SUPERIOR DE CONTACTO -->
+<div class="top-contact">
+  <div class="contact-left">
+    <span>📞 Contáctanos al +502 4218 1632</span>
+  </div>
+  <div class="contact-right">
+    <a href="https://www.facebook.com/share/17BnFnVbaf/?mibextid=wwXIfr" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+  </div>
+</div>
+
+<!-- 🧭 ENCABEZADO PRINCIPAL -->
+<header class="main-header">
+  <div class="nav-container">
+    <div class="logo-area">
+      <img src="LogoLibre.png" alt="Logo" class="logo-img" />
+    </div>
+
+
+    <div class="user-area">
+  <span id="openForm" style="cursor:pointer;">
+    <i class="fas fa-user-circle"></i> Formulario
+  </span>
+</div>
+</div>
+
+  <nav class="main-menu">
+    <a href="index.html">Categorías</a>
+    <a href="Pmarca.html">Por Marca</a>
+    <a href="MasVendidos.html">Más vendidos</a>
+    <a href="Regreso.html">Regreso a clases</a>
+    <a href="sobreNosotros.html">Sobre nosotros</a>
+  </nav>
+
+</header>
+
+  <!-- 🎞️ SLIDER PRINCIPAL -->
+  <section class="hero-slider">
+    <div class="slides">
+      <div class="slide active" style="background-image:url('rediseño.png')">
+    
+      </div>
+       <div class="slide" style="background-image:url('rediseño2.png')">
+    </div>
+      <div class="slide" style="background-image:url('rediseño3.png')">
+    </div>
+
+
+    <div class="controls">
+      <button class="prev">‹</button>
+      <button class="next">›</button>
+    </div>
+
+    <div class="indicators">
+      <button data-slide="0" class="active"></button>
+      <button data-slide="1"></button>
+      <button data-slide="2"></button>
+    </div>
+
+
+  </section>
+
+  <!-- ⭐ PRODUCTOS DESTACADOS -->
+ <section id="productos" style="padding: 60px 20px; background-color: #f4f4f4;">
+  <h2 style="text-align: center; color: #050d2e;">PRODUCTOS DESTACADOS</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; padding-top: 30px;">
+
+    <!-- Producto 1 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="cuadernos.png" alt="Libreta profesional" style="width: 100%; border-radius: 8px;">
+      <h3>Libreta Profesional A4</h3>
+      <p>160 hojas, papel bond, anillada. Ideal para oficina o universidad.</p>
+      <p><strong>Q25.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 2 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="crayones.png" alt="Set de lapiceros" style="width: 100%; border-radius: 8px;">
+      <h3>Set de Lapiceros de Colores</h3>
+      <p>Incluye 10 colores vivos y duraderos. Perfectos para dibujar o resaltar.</p>
+      <p><strong>Q18.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 3 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="mochila.png" alt="Mochila escolar" style="width: 100%; border-radius: 8px;">
+      <h3>Mochila Escolar</h3>
+      <p>Resistente al agua, múltiples compartimientos, diseño ergonómico.</p>
+      <p><strong>Q120.00</strong></p>
+      <button  class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 4 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="resaltadores.png" alt="Set de resaltadores" style="width: 100%; border-radius: 8px;">
+      <h3>Set de Resaltadores</h3>
+      <p>Colores neón, punta biselada, no traspasan el papel. 6 unidades.</p>
+      <p><strong>Q15.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+  </div>
+
+
+  <h2 style="text-align: center; color: #050d2e;">NUEVO INGRESO</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; padding-top: 30px;">
+
+    <!-- Producto 1 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="sacapuntas.png" alt="Libreta profesional" style="width: 100%; border-radius: 8px;">
+      <h3>Sacapuntas doble</h3>
+      <p>Para lápices normales y jumbo. Compacto y fácil de llevar.</p>
+      <p><strong>Q4.50</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 2 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="carpeta.png" alt="Set de lapiceros" style="width: 100%; border-radius: 8px;">
+      <h3>Carpeta de anillos tamaño carta</h3>
+      <p>Organiza tus documentos con estilo y practicidad.</p>
+      <p><strong>Q12.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 3 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="regla.png" alt="Mochila escolar" style="width: 100%; border-radius: 8px;">
+      <h3>Regla</h3>
+      <p>Precisión y durabilidad. Ideal para clases o diseño.</p>
+      <p><strong>Q3.25</strong></p>
+      <button  class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 4 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="goma.png" alt="Set de resaltadores" style="width: 100%; border-radius: 8px;">
+      <h3>Pegamento en barra (21 g)</h3>
+      <p>Adherencia fuerte y limpia. No tóxico y fácil de aplicar.</p>
+      <p><strong>Q5.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+  </div>
+</section>
+
+
+ 
+
+   <!-- CUADRÍCULA -->
+<div class="menu-cuadricula">
+  <a href="index.html" class="menu-item"><i class="fas fa-th-large"></i> Categorías</a>
+  <a href="Pmarca.html" class="menu-item"><i class="fas fa-gift"></i> Por marca</a>
+  <a href="MasVendidos.html" class="menu-item"><i class="fas fa-shopping-bag"></i> Más vendidos</a>
+  <a href="sobreNosotros.html" class="menu-item"><i class="fas fa-fire"></i> Sobre nosotros</a>
+  <a href="Regreso.html" class="menu-item"><i class="fas fa-tags"></i> Regreso a clases</a>
+</div>
+
+  
+  <section id="productos" style="padding: 60px 20px; background-color: #f4f4f4;">
+  <h2 style="text-align: center; color: #050d2e;">Nuestros Productos</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; padding-top: 30px;">
+
+    <!-- Producto 1 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="gemotria.png" alt="Libreta profesional" style="width: 100%; border-radius: 8px;">
+      <h3>Juego de geometria</h3>
+      <p>160 hojas, papel bond, anillada. Ideal para oficina o universidad.</p>
+      <p><strong>Q16.50</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 2 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="calcu.png" alt="Set de lapiceros" style="width: 100%; border-radius: 8px;">
+      <h3>Calculadora básica de 8 dígitos</h3>
+      <p>Funcional y ligera. Perfecta para operaciones diarias.</p>
+      <p><strong>Q22.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 3 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="post.png" alt="Mochila escolar" style="width: 100%; border-radius: 8px;">
+      <h3>Notas adhesivas (post-it)</h3>
+      <p>Rápidas, visibles y reutilizables. Perfectas para recordatorios.</p>
+      <p><strong>Q5.25</strong></p>
+      <button  class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 4 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="cinta.png" alt="Set de resaltadores" style="width: 100%; border-radius: 8px;">
+      <h3>Cinta adhesiva transparente con dispensador</h3>
+      <p>Corte fácil y adhesión duradera. Ideal para envolver o pegar.</p>
+      <p><strong>Q8.90</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+
+
+   <!-- Producto 1 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="permanente.png" alt="Libreta profesional" style="width: 100%; border-radius: 8px;">
+      <h3>Marcadores permanentes (set de 4)</h3>
+      <p>Marcado fuerte y duradero en papel, cartón, plástico y más.</p>
+      <p><strong>Q25.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 2 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="block.png" alt="Set de lapiceros" style="width: 100%; border-radius: 8px;">
+      <h3>Block de hojas tamaño oficio</h3>
+      <p>Papel blanco y resistente para tareas o reportes.</p>
+      <p><strong>Q10.50</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 3 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="gomaB.png" alt="Mochila escolar" style="width: 100%; border-radius: 8px;">
+      <h3>Goma de borrar blanca</h3>
+      <p>Borrado limpio sin dañar el papel. Suave y eficaz.</p>
+      <p><strong>Q1.75</strong></p>
+      <button  class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+    <!-- Producto 4 -->
+    <div style="background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <img src="tijeras.png" alt="Set de resaltadores" style="width: 100%; border-radius: 8px;">
+      <h3>tijeras redondas</h3>
+      <p>Seguras y cómodas para niños. Cortes precisos.</p>
+      <p><strong>Q6.00</strong></p>
+      <button class="boton-agregar" style="background-color: var(--naranja-vibrante); color: white; border: none; padding: 10px 20px; border-radius: 6px;">Agregar</button>
+    </div>
+
+  </div>
+</section>
+
+
+<!--  FORMULARIO EN MODAL -->
+<div id="formModal" class="modal">
+  <div class="modal-content">
+    <!-- Botón para cerrar el modal -->
+    <span class="close">&times;</span>
+
+    <!-- Título del formulario dentro del modal -->
+    <h2>📌 Envíanos tu consulta</h2>
+
+    <!-- Formulario de reserva/consulta -->
+    <form id="reservaForm">
+      
+      <!-- Campo para el nombre -->
+      <label>Nombre completo *</label>
+      <input type="text" id="nombre" required>
+
+      <!-- Campo para el correo -->
+      <label>Correo electrónico *</label>
+      <input type="email" id="email" required>
+
+      <!-- Campo para el teléfono -->
+      <label>Teléfono *</label>
+      <input type="tel" id="telefono" required>
+
+      <!-- Selección del servicio o producto -->
+      <label>Servicio / Producto *</label>
+      <select id="servicio" required>
+        <option value="">-- Selecciona --</option>
+        <option value="libros">Libros</option>
+        <option value="utiles">Útiles escolares</option>
+        <option value="otros">Otros</option>
+      </select>
+
+      <!-- Campo opcional para elegir fecha -->
+      <label>Fecha de interés</label>
+      <input type="date" id="fecha">
+
+      <!-- Campo para comentarios adicionales -->
+      <label>Comentarios</label>
+      <textarea id="comentarios" rows="4"></textarea>
+
+      <!-- Botón para enviar el formulario -->
+      <button id="btnEnviar" type="submit">📤 Enviar</button>
+
+      <!-- Mensaje de validación o confirmación -->
+      <p id="mensaje"></p>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- 👣 PIE DE PÁGINA -->
+<footer style="background-color: #050d2e; color: white; padding: 20px; text-align: center; margin-top: 60px;">
+  <p>&copy; 2025 Librería Escolar. Todos los derechos reservados.</p>
+  <div style="max-width: 1100px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;">
+
+    <!-- 🏢 Información de la empresa -->
+    <div style="flex: 1 1 250px;">
+      <h3 style="color: var(--naranja-vibrante); margin-bottom: 10px;">Librería La Brigada</h3>
+      <p>Tu destino confiable para útiles escolares, libros y más.</p>
+      <p><i class="fas fa-map-marker-alt"></i> 1 calle, 8 avenida La Brigada zona 7 de mixco Ciudad de Guatemala.</p>
+      <p><i class="fas fa-phone"></i> +502 4218-1632</p>
+      <p><i class="fas fa-envelope"></i> Cessiancabrera@gmail.com.com</p>
+    </div>
+
+    <!-- 🔗 Enlaces rápidos -->
+    <div style="flex: 1 1 180px;">
+      <h4 style="color: var(--naranja-vibrante); margin-bottom: 10px;">Enlaces rápidos</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li><a href="index.html" style="color: white; text-decoration: none;">Inicio</a></li>
+        <li><a href="Pmarca.html" style="color: white; text-decoration: none;">Por marca</a></li>
+        <li><a href="MasVendidos.html" style="color: white; text-decoration: none;">Mas vendios</a></li>
+        <li><a href="Regreso.html" style="color: white; text-decoration: none;">Regreso a clases</a></li>
+        <li><a href="sobreNosotros.html" style="color: white; text-decoration: none;">Sobre nosotros</a></li>
+      </ul>
+    </div>
+
+    <!-- 📲 Redes sociales -->
+    <div style="flex: 1 1 180px;">
+      <h4 style="color: var(--naranja-vibrante); margin-bottom: 10px;">Síguenos</h4>
+      <a href="https://www.facebook.com/share/17BnFnVbaf/?mibextid=wwXIfr" style="color: white; font-size: 20px; margin-right: 10px;"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+
+  <!-- 💬 Derechos reservados -->
+  <div style="text-align: center; margin-top: 30px; border-top: 1px solid #444; padding-top: 15px;">
+    © 2025 Librería La Brigada. Todos los derechos reservados.
+  </div>
+</footer>
+  <!-- 🧠 SCRIPTS INTERACTIVOS -->
+  <script>
+    // Slider de categorías
+    const slides = document.querySelectorAll('.categorias-principales .slide');
+    let index = 0;
+
+    setInterval(() => {
+      slides[index].classList.remove('active');
+      slides[index].classList.add('out');
+      index = (index + 1) % slides.length;
+
+      slides.forEach((slide, i) => {
+        if (i !== index) slide.classList.remove('active', 'out');
+      });
+
+      slides[index].classList.add('active');
+    }, 3000);
+  </script>
+
+  <script>
+    // Slider principal
+    const heroSlides = document.querySelectorAll(".hero-slider .slide");
+    const indicators = document.querySelectorAll(".indicators button");
+    let currentSlide = 0;
+
+    function showSlide(n) {
+      heroSlides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        indicators[i].classList.remove("active");
+        if (i === n) {
+          slide.classList.add("active");
+          indicators[i].classList.add("active");
+        }
+      });
+      currentSlide = n;
+    }
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      let n = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
+      showSlide(n);
+    });
+
+    document.querySelector(".next").addEventListener("click", () => {
+      let n = (currentSlide + 1) % heroSlides.length;
+      showSlide(n);
+    });
+
+    indicators.forEach((btn, i) => {
+      btn.addEventListener("click", () => showSlide(i));
+    });
+
+    setInterval(() => {
+      let next = (currentSlide + 1) % heroSlides.length;
+      showSlide(next);
+    }, 5000);
+  </script>
+
+<!-- 🔹 SCRIPT PARA ABRIR/CERRAR EL MODAL -->
+<script>
+  // Se obtiene el modal y los botones de abrir/cerrar
+  const modal = document.getElementById("formModal");
+  const btnOpen = document.getElementById("openForm");
+  const btnClose = document.querySelector(".close");
+
+  // Cuando se hace clic en el botón de abrir, se muestra el modal
+  btnOpen.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  // Cuando se hace clic en el botón de cerrar, se oculta el modal
+  btnClose.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Si el usuario hace clic fuera del modal, este se cierra
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+<!--FORM SCRIPT-->
+<script type="module">
+  // Importación de los SDKs de Firebase desde la CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // Configuración del proyecto en Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBvSr5tcQ9D6qSHIpoFaD-DyhW2X5D2ClI",
+    authDomain: "libreria-la-brigada.firebaseapp.com",
+    projectId: "libreria-la-brigada",
+    storageBucket: "libreria-la-brigada.appspot.com",
+    messagingSenderId: "797710331008",
+    appId: "1:797710331008:web:9b2cf2caba898c52ac0a65",
+    measurementId: "G-TXJMRX7VYM"
+  };
+
+  // Inicialización de Firebase y Firestore
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Función auxiliar para seleccionar elementos del DOM
+  const $ = (sel) => document.querySelector(sel);
+
+  // Referencias a los elementos del formulario
+  const form = $('#reservaForm');
+  const btn  = $('#btnEnviar');
+  const msg  = $('#mensaje');
+
+  // Validación de formato de email
+  const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  // Validación de formato de teléfono
+  const isPhone = (v) => /^[0-9+\-\s]{8,}$/.test(v);
+
+  // Manejo del evento de envío del formulario
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Evita el envío tradicional del formulario
+
+    // Obtiene los valores de los campos del formulario
+    const nombre = $('#nombre').value.trim();
+    const email = $('#email').value.trim();
+    const telefono = $('#telefono').value.trim();
+    const servicio = $('#servicio').value;
+    const fechaStr = $('#fecha').value;
+    const comentarios = $('#comentarios').value.trim();
+
+    // Validación de los campos obligatorios
+    if (!nombre || !isEmail(email) || !isPhone(telefono) || !servicio) {
+      msg.textContent = "❗ Revisa los campos obligatorios.";
+      msg.style.color = "#b10039";
+      return;
+    }
+
+    // Prepara los datos que se enviarán a Firestore
+    const data = {
+      nombre,
+      email,
+      telefono,
+      servicio,
+      fecha: fechaStr || null,
+      comentarios,
+      createdAt: serverTimestamp()
+    };
+
+    // Intenta guardar la información en Firestore
+    try {
+      btn.disabled = true; // Desactiva el botón durante el proceso
+      btn.textContent = "Guardando...";
+      const ref = await addDoc(collection(db, "reservas"), data);
+
+      // Mensaje de éxito si se guarda correctamente
+      msg.textContent = "✅ Reserva guardada correctamente. ID: " + ref.id;
+      msg.style.color = "#0e7c3a";
+      form.reset(); // Limpia los campos del formulario
+    } catch (err) {
+      // Mensaje de error si falla el guardado
+      console.error(err);
+      msg.textContent = "❌ Error al guardar la reserva. Intenta de nuevo.";
+      msg.style.color = "#b10039";
+    } finally {
+      // Reactiva el botón y restaura el texto
+      btn.disabled = false;
+      btn.textContent = "📤 Enviar";
+    }
+  });
+</script>
+</body>
+</html>
